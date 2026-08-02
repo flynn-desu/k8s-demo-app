@@ -15,12 +15,18 @@ public class HelloController {
     public String hello(@RequestParam(defaultValue = "guest") String name) {
         // 打印不同级别的日志，便于后续在 Grafana 中筛选
         logger.info("Processing hello request for user: {}", name);
-        
+
         if ("error".equalsIgnoreCase(name)) {
             logger.error("Triggered test error log for Loki tracking!");
             return "Error logged!";
         }
-        
+
         return "Hello, " + name + "!";
+    }
+
+    @GetMapping("/v2/test")
+    public String testV2() {
+        logger.info("Pipeline test successful! Executing version 2.0 release.");
+        return "CI/CD & Loki integration works perfectly!";
     }
 }
